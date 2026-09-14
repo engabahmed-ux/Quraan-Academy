@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية تحفيظ القرآن الكريم</title>
+    <meta name="description" content="تعليم وتحفيظ القرآن الكريم للأطفال والكبار حضوريًا وعن بُعد">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d23;
+            --accent: #d4af37;
+            --bg-warm: #fcfbfa;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --white: #ffffff;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--bg-warm); color: var(--text-main); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        
+        header { background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+        .logo-area { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.25rem; color: var(--primary); }
+        .logo-icon { width: 35px; height: 35px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-main); font-weight: 500; transition: var(--transition); }
+        .nav-links a:hover { color: var(--primary); }
+        
+        .admin-gear { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); transition: var(--transition); }
+        .admin-gear:hover { color: var(--primary); transform: rotate(45deg); }
+        
+        .btn { background: var(--primary); color: var(--white); padding: 0.6rem 1.2rem; border-radius: var(--border-radius); border: none; font-weight: 700; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn:hover { background: var(--primary-dark); }
+        .btn-accent { background: var(--accent); color: var(--primary-dark); }
+        .btn-accent:hover { background: #b8972b; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: var(--white); }
+
+        .hero { padding: 5rem 2rem; text-align: center; background: linear-gradient(135deg, rgba(10,92,54,0.05) 0%, rgba(212,175,55,0.05) 100%); }
+        .hero h1 { font-size: 2.5rem; color: var(--primary-dark); margin-bottom: 1rem; font-weight: 900; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem; }
+        .hero-actions { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        .section { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+        .section-title { text-align: center; margin-bottom: 3rem; }
+        .section-title h2 { font-size: 2rem; color: var(--primary-dark); position: relative; display: inline-block; }
+        .section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 50px; height: 3px; background: var(--accent); border-radius: 2px; }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { background: var(--white); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow); transition: var(--transition); border-top: 4px solid var(--primary); }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { color: var(--primary-dark); margin-bottom: 1rem; }
+        .card p { color: var(--text-muted); }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-content { background: var(--white); padding: 2.5rem; border-radius: var(--border-radius); width: 100%; max-width: 450px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .close-modal { position: absolute; top: 15px; left: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+        
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-size: 1rem; }
+        .form-control:focus { outline: none; border-color: var(--primary); }
+
+        .whatsapp-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1500; transition: var(--transition); }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        footer { background: var(--primary-dark); color: var(--white); text-align: center; padding: 2rem; margin-top: 4rem; }
+
+        .toast { position: fixed; bottom: 30px; right: 30px; background: var(--primary-dark); color: white; padding: 1rem 1.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow); z-index: 3000; display: none; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .dashboard-container { display: none; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--white); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center; }
+        .stat-card h4 { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .stat-card .number { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo-area">
+                <div class="logo-icon">📖</div>
+                <span id="siteBrandName">أكاديمية التحفيظ</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#home">الرئيسية</a>
+                <a href="#about">عن المحفظ</a>
+                <a href="#programs">البرامج</a>
+                <a href="#register">تسجيل طالب</a>
+                <button class="btn btn-outline" onclick="openModal('parentLoginModal')">دخول ولي الأمر</button>
+            </nav>
+            <button class="admin-gear" onclick="openModal('adminLoginModal')" aria-label="لوحة الإدارة">⚙️</button>
+        </div>
+    </header>
+
+    <main id="publicView">
+        <section id="home" class="hero">
+            <h1>نُعين أبناءك على حفظ كتاب الله خطوة بخطوة</h1>
+            <p>حلقات تحفيظ ومراجعة القرآن الكريم للأطفال والكبار، في المسجد أو المنزل أو عبر الإنترنت.</p>
+            <div class="hero-actions">
+                <button class="btn btn-accent" onclick="scrollToSection('register')">احجز حصة / سجّل طالبًا</button>
+                <button class="btn" onclick="openModal('parentLoginModal')">دخول ولي الأمر</button>
+            </div>
+        </section>
+
+        <section id="programs" class="section">
+            <div class="section-title">
+                <h2>برامج الأكاديمية</h2>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>التحفيظ للأطفال</h3>
+                    <p>خطة مناسبة لعمر الطفل مع المتابعة المستمرة وتحفيز دائم.</p>
+                </div>
+                <div class="card">
+                    <h3>المراجعة وتثبيت المحفوظ</h3>
+                    <p>برامج دورية لتثبيت الحفظ ومنع النسيان وإتقان الأحكام.</p>
+                </div>
+                <div class="card">
+                    <h3>التلقين والتصحيح</h3>
+                    <p>تصحيح التلاوة ومخارج الحروف وضبط القراءة بدقة.</p>
+                </div>
+                <div class="card">
+                    <h3>الحصص المنزلية</h3>
+                    <p>زيارة الطالب في المنزل حسب المواعيد المتاحة لضمان الالتزام.</p>
+                </div>
+                <div class="card">
+                    <h3>الحصص أونلاين</h3>
+                    <p>حصص مباشرة تفاعلية للطلاب داخل مصر وخارجها عبر منصات الاتصال.</p>
+                </div>
+                <div class="card">
+                    <h3>متابعة ولي الأمر</h3>
+                    <p>تقرير دوري واضح ومفصل عن الحفظ والحضور ومستوى الطالب.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="register" class="section">
+            <div class="section-title">
+                <h2>تسجيل طالب جديد</h2>
+            </div>
+            <div class="card" style="max-width: 800px; margin: 0 auto; border-top-color: var(--accent);">
+                <form id="registrationForm" onsubmit="handleRegistration(event)">
+                    <h3 style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">بيانات ولي الأمر</h3>
+                    <div class="grid-3" style="grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label>اسم ولي الأمر</label>
+                            <input type="text" class="form-control" id="parentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>رقم الهاتف (واتساب)</label>
+                            <input type="tel" class="form-control" id="parentPhone" required>
+                        </div>
+                    </div>
+                    <div class="grid-3" style="grid-template-columns: 1fr 1fr 1fr; margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label>البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="parentEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>الدولة</label>
+                            <input type="text" class="form-control" id="country" required>
+                        </div>
+                        <div class="form-group">
+                            <label>المدينة</label>
+                            <input type="text" class="form-control" id="city" required>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; margin-top: 2rem;">بيانات الطالب</h3>
+                    <div class="grid-3" style="grid-template-columns: 1fr 1fr 1fr; margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label>اسم الطالب</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>العمر</label>
+                            <input type="number" class="form-control" id="studentAge" required>
+                        </div>
+                        <div class="form-group">
+                            <label>الجنس</label>
+                            <select class="form-control" id="studentGender">
+                                <option value="male">ذكر</option>
+                                <option value="female">أنثى</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid-3" style="grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label>نوع الدراسة المفضلة</label>
+                            <select class="form-control" id="studyType">
+                                <option value="mosque">المسجد</option>
+                                <option value="home">المنزل</option>
+                                <option value="online">أونلاين</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>الهدف</label>
+                            <select class="form-control" id="studentGoal">
+                                <option value="memorization">حفظ جديد</option>
+                                <option value="review">مراجعة</option>
+                                <option value="recitation">تصحيح تلاوة</option>
+                                <option value="both">حفظ ومراجعة</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;" id="regSubmitBtn">إرسال طلب التسجيل</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <main id="parentDashboardView" class="section dashboard-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h2 id="welcomeParentMsg">مرحبًا بك</h2>
+            <button class="btn btn-outline" onclick="logoutParent()">تسجيل الخروج</button>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>الأبناء المسجلون</h4>
+                <div class="number" id="parentChildrenCount">0</div>
+            </div>
+            <div class="stat-card">
+                <h4>الحصص القادمة</h4>
+                <div class="number" id="parentLessonsCount">0</div>
+            </div>
+        </div>
+        <div class="section-title" style="margin-top: 2rem;">
+            <h2>متابعة الأبناء</h2>
+        </div>
+        <div id="parentChildrenContainer" class="grid-3">
+            <!-- Dynamic Children Cards -->
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('adminLoginModal')">&times;</button>
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary-dark);">دخول المحفظ / الإدارة</h3>
+            <form onsubmit="handleAdminLogin(event)">
+                <div class="form-group">
+                    <label>البريد الإلكتروني للإدارة</label>
+                    <input type="email" class="form-control" id="adminEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" class="form-control" id="adminPassword" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">تسجيل الدخول للإدارة</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="parentLoginModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('parentLoginModal')">&times;</button>
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary-dark);">دخول ولي الأمر</h3>
+            <form onsubmit="handleParentLogin(event)">
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" class="form-control" id="pLoginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" class="form-control" id="pLoginPassword" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">دخول</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-float">💬</a>
+
+    <footer>
+        <p id="footerBrandName">أكاديمية تحفيظ القرآن الكريم &copy; 2026</p>
+    </footer>
+
+    <!-- Firebase SDKs via CDN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDoc, getDocs, doc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // ضع بيانات Firebase الخاصة بك هنا (مطلوب)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // إعدادات المتغيرات العامة
+        const TEACHER_NAME = "الشيخ عبد الله";
+        const WHATSAPP_NUMBER = "201000000000"; // رقم افتراضي
+
+        document.getElementById('siteBrandName').innerText = `أكاديمية ${TEACHER_NAME}`;
+        document.getElementById('footerBrandName').innerText = `أكاديمية ${TEACHER_NAME} لتحفيظ القرآن الكريم © 2026`;
+        document.getElementById('whatsappBtn').href = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+        window.showToast = function(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.style.display = 'block';
+            setTimeout(() => { t.style.display = 'none'; }, 3500);
+        }
+
+        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; }
+        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; }
+        window.scrollToSection = function(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+        window.handleRegistration = async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('regSubmitBtn');
+            btn.disabled = true;
+            try {
+                await addDoc(collection(db, "registrationRequests"), {
+                    parentName: document.getElementById('parentName').value,
+                    parentPhone: document.getElementById('parentPhone').value,
+                    parentEmail: document.getElementById('parentEmail').value,
+                    country: document.getElementById('country').value,
+                    city: document.getElementById('city').value,
+                    studentName: document.getElementById('studentName').value,
+                    studentAge: Number(document.getElementById('studentAge').value),
+                    studentGender: document.getElementById('studentGender').value,
+                    studyType: document.getElementById('studyType').value,
+                    studentGoal: document.getElementById('studentGoal').value,
+                    status: 'pending',
+                    createdAt: serverTimestamp()
+                });
+                showToast('تم إرسال طلب التسجيل بنجاح، سنتواصل معك قريبًا');
+                document.getElementById('registrationForm').reset();
+            } catch (err) {
+                showToast('حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقًا');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        window.handleAdminLogin = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const pass = document.getElementById('adminPassword').value;
+            try {
+                const cred = await signInWithEmailAndPassword(auth, email, pass);
+                const idTokenResult = await cred.user.getIdTokenResult(true);
+                if (idTokenResult.claims.admin) {
+                    window.location.href = 'admin.html';
+                } else {
+                    showToast('هذا الحساب ليس حساب مشرف');
+                    await signOut(auth);
+                }
+            } catch (err) {
+                showToast('فشل تسجيل الدخول، تأكد من البيانات');
+            }
+        }
+
+        window.handleParentLogin = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('pLoginEmail').value;
+            const pass = document.getElementById('pLoginPassword').value;
+            try {
+                const cred = await signInWithEmailAndPassword(auth, email, pass);
+                closeModal('parentLoginModal');
+                loadParentDashboard(cred.user.uid);
+            } catch (err) {
+                showToast('فشل تسجيل الدخول، تأكد من البريد وكلمة المرور');
+            }
+        }
+
+        async function loadParentDashboard(uid) {
+            document.getElementById('publicView').style.display = 'none';
+            document.getElementById('parentDashboardView').style.display = 'block';
+            try {
+                const userDoc = await getDoc(doc(db, "users", uid));
+                if (userDoc.exists()) {
+                    document.getElementById('welcomeParentMsg').innerText = `مرحبًا بك يا ${userDoc.data().name}`;
+                }
+                const q = query(collection(db, "students"), where("parentId", "==", uid));
+                const snap = await getDocs(q);
+                document.getElementById('parentChildrenCount').innerText = snap.size;
+                const container = document.getElementById('parentChildrenContainer');
+                container.innerHTML = '';
+                if(snap.empty) {
+                    container.innerHTML = '<p>لا يوجد أبناء مسجلون مرتبطون بحسابك حاليًا.</p>';
+                    return;
+                }
+                snap.forEach(docSnap => {
+                    const data = docSnap.data();
+                    container.innerHTML += `
+                        <div class="card">
+                            <h3>${data.name}</h3>
+                            <p>العمر: ${data.age} سنوات</p>
+                            <p>نوع الدراسة: ${data.studyType}</p>
+                            <p>المستوى: ${data.level || 'مبتدئ'}</p>
+                        </div>
+                    `;
+                });
+            } catch(err) {
+                showToast('خطأ في جلب بيانات لوحة التحكم');
+            }
+        }
+
+        window.logoutParent = async function() {
+            await signOut(auth);
+            document.getElementById('parentDashboardView').style.display = 'none';
+            document.getElementById('publicView').style.display = 'block';
+            showToast('تم تسجيل الخروج بنجاح');
+        }
+    </script>
+</body>
+</html>
